@@ -12,7 +12,6 @@ export const createProject = async (req: Request, res: Response) => {
     if (!title || !description) {
       throw new Error('Title/Description are required');
     }
-    console.log(userObject)
     const project = await Project.create({
       user_id: userObject._id,
       title: title,
@@ -37,6 +36,9 @@ export const updateProject = async (req: Request, res: Response) => {
       title,
       description,
     }: { project_id: string; title: string; description: string } = req.body;
+    if (!project_id) {
+      throw new Error('Project Id required!');
+    } 
     await Project.findByIdAndUpdate(
       project_id,
       { $set: { title: title, description: description } },

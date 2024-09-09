@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FlexBoxCentered } from "@/components/flex-box/flex-box";
 import {
   Inputs,
@@ -42,6 +41,7 @@ const RegisterComponent = ({ onToggleForm }: RegisterComponentProps) => {
       await createAnUser(data);
       router.push("/");
       setLoading(false);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setLoading(false);
       setIsError(true);

@@ -23,7 +23,6 @@ const Tasks = ({ initialtasks, projectId }: Props) => {
     setOpen(true);
   };
   const queryClient = useQueryClient();
-  console.log(queryClient, "cl;ienttt");
   const token = Cookies.get("accesstoken") as string;
   const { data: tasks } = useQuery({
     queryKey: ["tasks", projectId],

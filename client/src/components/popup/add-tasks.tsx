@@ -17,7 +17,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 380,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -80,6 +80,7 @@ export default function AddTasksPopup({
           <Box sx={style}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Stack spacing={2}>
+                <h3 style={{textAlign:'center'}}>Add Tasks</h3>
                 <Controller
                   name="title"
                   control={control}

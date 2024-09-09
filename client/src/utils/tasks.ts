@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TaskInput } from '@/components/validation-schema/task-schema';
 import axios from "axios";
 
 export const getTasks = async (token: string, projectId: string) => {
@@ -15,7 +15,7 @@ export const getTasks = async (token: string, projectId: string) => {
   }
 };
 
-export const updateTask = async (taskId: string, data: any, token?: string) => {
+export const updateTask = async (taskId: string, data: TaskInput, token?: string) => {
   try {
     const response = await axios.patch(
       `${process.env.BASE_URL}tasks/${taskId}`,

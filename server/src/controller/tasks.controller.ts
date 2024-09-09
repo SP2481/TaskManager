@@ -34,6 +34,9 @@ export const createTask = async (req: Request, res: Response) => {
 export const getAllTasks = async (req: Request, res: Response) => {
   try {
     const project_id = req.params.id;
+    if (!project_id) {
+      throw new Error('Project Id required!');
+    } 
     const tasks = await Tasks.find({ project_id: project_id }).populate('project_id');
     const response = ResponseBuilder(tasks, statusCodes.OK);
     res.status(statusCodes.OK).send(response);

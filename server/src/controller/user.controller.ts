@@ -85,7 +85,6 @@ export const verifyUser = async (req: Request, res: Response) => {
     if (!user) {
       throw new Error('user not found');
     }
-    console.log(user, 'user');
     const response = ResponseBuilder(user, statusCodes.OK);
     res.status(200).send(response);
   } catch (err: unknown) {

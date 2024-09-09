@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import LogIn from "@/page-section/login";
 import Tasks from "@/page-section/tasks";
 import { getTasks } from "@/utils/tasks";
