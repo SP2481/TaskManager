@@ -11,6 +11,7 @@ import Stack from "@mui/material/Stack";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 interface Props {
   initialtasks: ITask[];
@@ -35,6 +36,8 @@ const Tasks = ({ initialtasks, projectId }: Props) => {
     mutationFn: (data: TaskInput) => AddTask(data, token, projectId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+            toast.success('Task added successfully')
+
     },
     onError: (error) => {
       console.log(error);

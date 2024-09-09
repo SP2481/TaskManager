@@ -31,7 +31,7 @@ export const createProject = async (req: Request, res: Response) => {
 
 export const updateProject = async (req: Request, res: Response) => {
   try {
-    const project_id  = req.params.id;
+    const project_id:string  = req.params.id;
     const {
       title,
       description,
@@ -58,7 +58,7 @@ export const updateProject = async (req: Request, res: Response) => {
 
 export const deleteProject = async (req: Request, res: Response) => {
   try {
-    const project_id  = req.params.id;
+    const project_id:string   = req.params.id;
     if (!project_id) {
       throw new Error('Project Id required!');
     } 

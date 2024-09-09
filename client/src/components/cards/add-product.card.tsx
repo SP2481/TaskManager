@@ -5,6 +5,7 @@ import { Stack } from "@mui/material";
 import Card from "@mui/material/Card";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { toast } from 'react-toastify';
 import AddProjectPopup from "../popup/add-project";
 import { ProjectInput } from "../validation-schema/project-schema";
 
@@ -19,6 +20,7 @@ export const AddProjects = ({ token }: { token: string }) => {
     mutationFn: (data: ProjectInput) => AddProject(data, token),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      toast.success('Project added successfully')
     },
     onError: (error) => {
       console.log(error);

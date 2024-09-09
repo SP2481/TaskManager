@@ -12,7 +12,6 @@ export const createTask = async (req: Request, res: Response) => {
       description,
       status,
     }: { title: string; description: string; status: string } = req.body;
-    console.log(title, description, status, project_id)
     const createdTasks = await Tasks.create({
       project_id: project_id,
       title: title,
@@ -57,10 +56,8 @@ export const getAllTasksByUserId = async (req: Request, res: Response) => {
       path: 'user_id',
     });
     const allTasks = [];
-    console.log(projects)
     const tasks  = await projects.map(async (project) => {
       const tasks = await Tasks.find({project_id: project._id});
-      console.log(tasks)
       allTasks.push(tasks)
     })
     

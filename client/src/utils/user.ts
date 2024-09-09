@@ -24,7 +24,6 @@ export const loginUser = async (data: LoginInputs) => {
     const response = await axios.post(`${process.env.BASE_URL}user/`, data, {
       withCredentials: true,
     });
-    console.log(response);
     return response.data;
   } catch (err) {
     throw err;

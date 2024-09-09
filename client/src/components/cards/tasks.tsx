@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { Box, Checkbox, FormControl, MenuItem, Select } from "@mui/material";
+import { Checkbox, FormControl, MenuItem, Select, Tooltip } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useState } from "react";
@@ -28,7 +28,7 @@ export const TaskRow = ({ task }: { task: ITask }) => {
 
   const mutation = useMutation({
     mutationFn: (newStatus: string) =>
-      updateTask(task._id, { status: newStatus }, acccestoken),
+      updateTask(task._id, { status: newStatus } as TaskInput, acccestoken),
     onError: (error) => {
       console.error("Error updating task status:", error);
     },
@@ -98,9 +98,12 @@ export const TaskRow = ({ task }: { task: ITask }) => {
               }}
             >
               {task?.title}
+              <small style={{display:'block', color:'#AAA', marginTop:3}}>
+                {task?.project_id.title}
+              </small>
             </h3>
           </FlexBox>
-          <FlexBox alignItems={"center"} gap={2}>
+          <FlexBox alignItems={"center"} gap={{xs:2, sm:3.5}}>
             <FormControl variant="standard" sx={{ minWidth: 120 }}>
               <Select
                 labelId="task-status"
@@ -113,10 +116,15 @@ export const TaskRow = ({ task }: { task: ITask }) => {
                 <MenuItem value={"Done"}>Done</MenuItem>
               </Select>
             </FormControl>
-            <DeleteIcon onClick={handleDelete} style={{ cursor: "pointer" }} />
-            <Box onClick={() => setOpen(true)}>
-              <ModeEditIcon style={{ cursor: "pointer" }} />
-            </Box>
+            <Tooltip title='Delete task'>
+              <DeleteIcon onClick={handleDelete} style={{ cursor: "pointer" }} />
+            </Tooltip>
+            <Tooltip title='Edit task'>
+              <FlexBox onClick={() => setOpen(true)} alignItems={'center'}>
+                <ModeEditIcon style={{ cursor: "pointer" }} />
+              </FlexBox>
+
+            </Tooltip>
           </FlexBox>
         </FlexBox>
       </StyledRow>

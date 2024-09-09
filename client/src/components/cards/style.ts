@@ -4,15 +4,15 @@ import { Box } from "@mui/material";
 import Card from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 
-export const StyledRow = styled(Card)(() => ({
+export const StyledRow = styled(Card)(({theme}) => ({
   width: "100%",
   height: "auto",
   boxShadow: "1px 2px 1px 1px #CCC",
   cursor: "pointer",
-  "&:hover": {
-    transform: "scale(1.01)",
-    transition: "transform 200ms ease-in",
-  },
+  padding:'0.5rem 0.8rem',
+  [theme.breakpoints.down(425)] : {
+    padding:0
+  }
 }));
 
 export const StyledCard = styled(Card)(() => ({
