@@ -1,0 +1,105 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FlexBoxCentered } from "@/components/flex-box/flex-box";
+import {
+  LoginInputs,
+  LoginValiDationSchema,
+} from "@/components/validation-schema/login-input";
+import { loginUser } from "@/utils/user";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
+interface LoginComponentProps {
+  onToggleForm: () => void; // Add the prop for toggling the form
+}
+
+const LoginComponent = ({ onToggleForm }: LoginComponentProps) => {
+  const router = useRouter();
+  const [isError, setIsError] = useState<boolean>(false);
+  const [errMsg, setErrMsg] = useState<string>("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginInputs>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(LoginValiDationSchema),
+  });
+  const onSubmit = async (data: LoginInputs) => {
+    try {
+      await loginUser(data);
+      router.push("/");
+    } catch (err: any) {
+      setIsError(true);
+      setErrMsg(err.response.data?.message);
+    }
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={2}>
+        <h2>Login</h2>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Email"
+              type="email"
+              variant="outlined"
+              fullWidth
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Password"
+              type="password"
+              variant="outlined"
+              fullWidth
+              error={!!errors.password}
+              helperText={errors.password?.message}
+            />
+          )}
+        />
+
+        <Button type="submit" variant="contained" color="primary">
+          Login
+        </Button>
+        {isError && <small style={{ color: "red" }}>{errMsg}</small>}
+        <FlexBoxCentered gap={2}>
+          <Divider sx={{ width: "40%", borderWidth: "0.01rem" }} />
+          <small style={{ color: "#7B7B7B" }}>or</small>
+          <Divider sx={{ width: "40%", borderWidth: "0.01rem" }} />
+        </FlexBoxCentered>
+        <Typography textAlign={"center"} component={"small"}>
+          Don&apos;t have an account?{" "}
+          <span
+            style={{ cursor: "pointer", textDecoration: "underline" }}
+            onClick={onToggleForm}
+          >
+            SignUp
+          </span>{" "}
+        </Typography>
+      </Stack>
+    </form>
+  );
+};
+
+export default LoginComponent;
