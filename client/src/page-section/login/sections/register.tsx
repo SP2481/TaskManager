@@ -6,7 +6,7 @@ import {
 } from "@/components/validation-schema/login-input";
 import { createAnUser } from "@/utils/user";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
@@ -22,6 +22,7 @@ interface RegisterComponentProps {
 const RegisterComponent = ({ onToggleForm }: RegisterComponentProps) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [errMsg, setErrMsg] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     control,
     handleSubmit,
@@ -37,12 +38,14 @@ const RegisterComponent = ({ onToggleForm }: RegisterComponentProps) => {
   const router = useRouter();
   const onSubmit = async (data: Inputs) => {
     try {
-      const creatingAnUser = await createAnUser(data);
-      console.log(creatingAnUser, "created");
+      setLoading(true);
+      await createAnUser(data);
       router.push("/");
+      setLoading(false);
     } catch (err: any) {
+      setLoading(false);
       setIsError(true);
-      setErrMsg(err.response.data?.message);
+      setErrMsg(err?.response?.data?.message);
     }
   };
   return (
@@ -97,7 +100,7 @@ const RegisterComponent = ({ onToggleForm }: RegisterComponentProps) => {
         />
 
         <Button type="submit" variant="contained" color="primary">
-          Register
+          {loading ? <CircularProgress /> : "Register"}
         </Button>
         {isError && <small style={{ color: "red" }}>{errMsg}</small>}
         <FlexBoxCentered gap={2}>

@@ -2,12 +2,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import Fade from "@mui/material/Fade";
 import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { TaskInput, TasksSchema } from "../validation-schema/task-schema";
 
@@ -39,6 +40,7 @@ export default function AddTasksPopup({
   handleTaskSubmit: (_data: TaskInput) => void;
   initialValues?: TaskInput;
 }) {
+  const [loading, setLoading] = useState<boolean>(false);
   const handleClose = () => setOpen(false);
   const {
     control,
@@ -55,7 +57,9 @@ export default function AddTasksPopup({
   });
 
   const onSubmit = async (data: TaskInput) => {
+    setLoading(true);
     await handleTaskSubmit(data);
+    setLoading(false);
     handleClose();
     reset();
   };
@@ -130,7 +134,11 @@ export default function AddTasksPopup({
                   )}
                 />
                 <Button type="submit" variant="contained" color="primary">
-                  Submit
+                  {loading ? (
+                    <CircularProgress sx={{ color: "white" }} />
+                  ) : (
+                    "Submit"
+                  )}{" "}
                 </Button>
               </Stack>
             </form>

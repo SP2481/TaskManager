@@ -15,9 +15,12 @@ const HomePage = ({ initialProjects }: { initialProjects: IProject[] }) => {
     queryFn: () => getAllProjects(token as string),
     initialData: initialProjects,
     refetchOnWindowFocus: false,
+    enabled: !!token,
   });
+
   return (
-    <Box height={"80vh"}>
+    <Box height={"80vh"} mt={2}>
+      <h1 style={{ marginLeft: "0.5rem" }}>Projects</h1>
       <FlexBox gap={3} alignItems={"center"} mt={3} flexWrap={"wrap"} p={1}>
         {projects?.map((project: IProject) => (
           <ProjectCard project={project} key={project._id} />

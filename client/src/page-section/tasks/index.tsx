@@ -2,7 +2,7 @@
 import { StyledRow } from "@/components/cards/style";
 import { TaskRow } from "@/components/cards/tasks";
 import AddTasksPopup from "@/components/popup/add-tasks";
-import { TaskInput } from '@/components/validation-schema/task-schema';
+import { TaskInput } from "@/components/validation-schema/task-schema";
 import { ITask } from "@/response-types/tasks";
 import { AddTask, getTasks } from "@/utils/tasks";
 import { Add } from "@mui/icons-material";
@@ -42,9 +42,16 @@ const Tasks = ({ initialtasks, projectId }: Props) => {
     },
   });
   return (
-    <Box height={"80vh"}>
-      <Stack gap={1}>
-        {tasks?.map((task: ITask) => <TaskRow task={task} key={task.title} />)}
+    <Box height={"80vh"} mt={2}>
+      <h1 style={{ marginLeft: "0.5rem" }}>Tasks</h1>
+      <Stack gap={1} mt={2}>
+        {tasks && tasks.length > 0 ? (
+          tasks?.map((task: ITask) => <TaskRow task={task} key={task.title} />)
+        ) : (
+          <h3 style={{ textAlign: "center" }}>
+            No tasks found! assign some tasks to your project
+          </h3>
+        )}
         <StyledRow
           sx={{
             height: "3rem",
@@ -52,8 +59,9 @@ const Tasks = ({ initialtasks, projectId }: Props) => {
             justifyContent: "center",
             alignItems: "center",
           }}
+          onClick={handleOpen}
         >
-          <Add onClick={handleOpen} />
+          <Add />
         </StyledRow>
       </Stack>
       <AddTasksPopup

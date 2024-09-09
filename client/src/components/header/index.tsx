@@ -1,38 +1,36 @@
 import { Button, Typography } from "@mui/material";
 import Cookies from "js-cookie";
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { FlexBox } from '../flex-box/flex-box';
+import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FlexBox } from "../flex-box/flex-box";
 import { StyledBox } from "./style";
 
 export const Header = () => {
-  const router = useRouter()
-  const [accesstoken , setAccestoken] =  useState('')
+  const router = useRouter();
+  const [accesstoken, setAccestoken] = useState("");
+  const token = Cookies.get("accesstoken");
 
   useEffect(() => {
-    // Only check for the access token after component has mounted
-    const token = Cookies.get('accesstoken');
     setAccestoken(token ?? "");
-  }, [accesstoken]);
+  }, [token]);
 
   const handleLogout = () => {
-    Cookies.remove('accesstoken');
-    router.push("/login")
-  }
+    Cookies.remove("accesstoken");
+    router.push("/login");
+  };
   return (
     <StyledBox>
-      <Typography variant="h4" color="primary">
-        TaskManager
-      </Typography>
-        { accesstoken ? (
+      <Link href={'/'}>
+        <Typography variant="h4" color="primary">
+          TaskManager
+        </Typography>
+      </Link>
+      {accesstoken ? (
         <FlexBox alignItems={"center"}>
-          <Button
-          variant="contained"
-          color="primary"
-          onClick={handleLogout}
-        >
-          Logout
-        </Button>
+          <Button variant="contained" color="primary" onClick={handleLogout}>
+            Logout
+          </Button>
         </FlexBox>
       ) : (
         <Button

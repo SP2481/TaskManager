@@ -3,11 +3,12 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   ProjectInput,
@@ -36,6 +37,7 @@ export default function AddProjectPopup({
   handleProjectSubmit: (_data: ProjectInput) => void;
   initialValues?: ProjectInput;
 }) {
+  const [loading, setLoading] = useState<boolean>(false);
   const handleClose = () => setOpen(false);
   const {
     control,
@@ -51,8 +53,10 @@ export default function AddProjectPopup({
   });
 
   const onSubmit = async (data: ProjectInput) => {
+    setLoading(true);
     await handleProjectSubmit(data);
     handleClose();
+    setLoading(false);
     reset();
   };
   return (
@@ -67,6 +71,7 @@ export default function AddProjectPopup({
             timeout: 500,
           },
         }}
+
       >
         <Fade in={open}>
           <Box sx={style}>
@@ -105,7 +110,11 @@ export default function AddProjectPopup({
                   )}
                 />
                 <Button type="submit" variant="contained" color="primary">
-                  Submit
+                  {loading ? (
+                    <CircularProgress sx={{ color: "white" }} />
+                  ) : (
+                    "Submit"
+                  )}
                 </Button>
               </Stack>
             </form>

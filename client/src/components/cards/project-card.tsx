@@ -47,7 +47,7 @@ export const ProjectCard = ({ project }: { project: IProject }) => {
         <FlexBox
           alignItems={"start"}
           pl={1}
-          gap={1}
+          gap={2}
           justifyContent={"space-around"}
           width={"100%"}
           height={"100%"}
@@ -55,14 +55,14 @@ export const ProjectCard = ({ project }: { project: IProject }) => {
           <Avatar
             sx={{ height: "5rem", width: "5rem", mt: 2, backgroundColor: "" }}
           >
-            S
+            <Typography variant="h4">{project?.title?.charAt(0)}</Typography>
           </Avatar>
-          <Stack flexGrow={1} pl={1} gap={1} pr={1}>
+          <Stack flexGrow={1} pl={1} gap={1} pr={1} pt={1}>
             <FlexBox alignItems={"center"} justifyContent={"space-between"}>
               <Link href={`${project._id}`}>
                 <Typography
-                  variant="h4"
-                  component={"h4"}
+                  variant="h5"
+                  component={"h5"}
                   sx={{
                     "&:hover": {
                       textDecoration: "underline",
@@ -80,7 +80,6 @@ export const ProjectCard = ({ project }: { project: IProject }) => {
               </Typography>
             </StyledDesc>
             <small style={{ color: "#AAA" }}>{formattedData}</small>
-            <small style={{ color: "#AAA" }}>2 tasks</small>
           </Stack>
         </FlexBox>
       </StyledCard>

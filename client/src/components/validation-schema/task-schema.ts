@@ -12,8 +12,8 @@ export const TasksSchema = Yup.object().shape({
     .max(10, "Title must be maximum 10 characters length")
     .required("Title is required"),
   description: Yup.string()
-    .min(5, "Title must be 5 character length")
-    .max(20, "Title must be maximum 20 characters length")
-    .required("Description is required"),
+    .required("Description is required")
+    .min(5, "Description must be 5 character length")
+    .max(50, "Description must be maximum 50 characters length"),
   status: Yup.string().required("Project type is required"),
 });

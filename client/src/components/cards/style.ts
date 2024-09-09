@@ -9,6 +9,10 @@ export const StyledRow = styled(Card)(() => ({
   height: "auto",
   boxShadow: "1px 2px 1px 1px #CCC",
   cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.01)",
+    transition: "transform 200ms ease-in",
+  },
 }));
 
 export const StyledCard = styled(Card)(() => ({
@@ -16,7 +20,7 @@ export const StyledCard = styled(Card)(() => ({
   width: "20rem",
   height: "10rem",
   minHeight: "5rem",
-  paddingTop: 10,
+  paddingTop: 15,
   borderRadius: "0.325rem",
   boxShadow: "1px 2px 1px 1px #CCC",
   cursor: "pointer",
@@ -33,4 +37,5 @@ export const StyledDesc = styled(Box)(() => ({
   overflow: "hidden",
   textOverflow: "ellipsis",
   wordBreak: "break-word",
+  
 }));

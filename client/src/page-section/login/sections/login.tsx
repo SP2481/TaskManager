@@ -6,6 +6,7 @@ import {
 } from "@/components/validation-schema/login-input";
 import { loginUser } from "@/utils/user";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
@@ -16,13 +17,14 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface LoginComponentProps {
-  onToggleForm: () => void; // Add the prop for toggling the form
+  onToggleForm: () => void;
 }
 
 const LoginComponent = ({ onToggleForm }: LoginComponentProps) => {
   const router = useRouter();
   const [isError, setIsError] = useState<boolean>(false);
   const [errMsg, setErrMsg] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     control,
     handleSubmit,
@@ -36,11 +38,14 @@ const LoginComponent = ({ onToggleForm }: LoginComponentProps) => {
   });
   const onSubmit = async (data: LoginInputs) => {
     try {
+      setLoading(true);
       await loginUser(data);
       router.push("/");
+      setLoading(false);
     } catch (err: any) {
+      setLoading(false);
       setIsError(true);
-      setErrMsg(err.response.data?.message);
+      setErrMsg(err?.response?.data?.message);
     }
   };
   return (
@@ -80,7 +85,7 @@ const LoginComponent = ({ onToggleForm }: LoginComponentProps) => {
         />
 
         <Button type="submit" variant="contained" color="primary">
-          Login
+          {loading ? <CircularProgress sx={{ color: "white" }} /> : "Login"}
         </Button>
         {isError && <small style={{ color: "red" }}>{errMsg}</small>}
         <FlexBoxCentered gap={2}>

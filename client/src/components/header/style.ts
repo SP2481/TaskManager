@@ -6,7 +6,7 @@ export const StyledBox = styled(FlexBox)(() => ({
   height: "4rem",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: 10,
+  padding: 15,
 }));
 
 export const SearchBox = styled(FlexBox)(() => ({

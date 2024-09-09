@@ -31,16 +31,19 @@ export const loginUser = async (data: LoginInputs) => {
   }
 };
 
-export const VerifyUser = async (token:string) => {
+export const VerifyUser = async (token: string) => {
   try {
-    const response = await axios.post(`${process.env.BASE_URL}user/verifyUser`, {
-      headers: {
-        accesstoken: token
-      }
-    });
+    const response = await axios.post(
+      `${process.env.BASE_URL}user/verifyUser`,
+      {
+        headers: {
+          accesstoken: token,
+        },
+      },
+    );
     console.log(response);
     return response.data;
   } catch (err) {
     throw err;
   }
-}
+};
