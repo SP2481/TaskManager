@@ -4,13 +4,13 @@ import { ProjectCard } from "@/components/cards/project-card";
 import { FlexBox } from "@/components/flex-box/flex-box";
 import { IProject } from "@/response-types/project";
 import { getAllProjects } from "@/utils/projects";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 
 const HomePage = ({ initialProjects }: { initialProjects: IProject[] }) => {
   const token = Cookies.get("accesstoken") as string;
-  const { data: projects } = useQuery({
+  const { data: projects, isLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: () => getAllProjects(token as string),
     initialData: initialProjects,
@@ -20,8 +20,13 @@ const HomePage = ({ initialProjects }: { initialProjects: IProject[] }) => {
 
   return (
     <Box height={"80vh"} mt={2}>
-      <h1 style={{ marginLeft: "0.5rem" }}>Projects</h1>
-      <FlexBox gap={3} alignItems={"center"} justifyContent={{xs:'center', md:'left'}} mt={3} flexWrap={"wrap"} p={1}>
+      {
+        isLoading && (
+          <CircularProgress color='primary' />
+        )
+      }
+      <h1 style={{ marginLeft: "0.5rem", fontWeight:'500' }}>Projects</h1>
+      <FlexBox gap={3} alignItems={"center"} justifyContent={{xs:'center', md:'left'}} mt={2} flexWrap={"wrap"} p={1}>
         { projects && projects?.map((project: IProject) => (
           <ProjectCard project={project} key={project._id} />
         ))}

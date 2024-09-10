@@ -7,6 +7,7 @@ import { ITask } from "@/response-types/tasks";
 import { AddTask, getTasks } from "@/utils/tasks";
 import { Add } from "@mui/icons-material";
 import Box from "@mui/material/Box";
+import CircularProgress from '@mui/material/CircularProgress';
 import Stack from "@mui/material/Stack";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
@@ -25,7 +26,7 @@ const Tasks = ({ initialtasks, projectId }: Props) => {
   };
   const queryClient = useQueryClient();
   const token = Cookies.get("accesstoken") as string;
-  const { data: tasks } = useQuery({
+  const { data: tasks, isLoading } = useQuery({
     queryKey: ["tasks", projectId],
     queryFn: () => getTasks(token as string, projectId),
     initialData: initialtasks,
@@ -45,6 +46,11 @@ const Tasks = ({ initialtasks, projectId }: Props) => {
   });
   return (
     <Box height={"80vh"} mt={2}>
+      {
+        isLoading && (
+          <CircularProgress color='primary' />
+        )
+      }
       <h1 style={{ marginLeft: "0.5rem" }}>Tasks</h1>
       <Stack gap={1} mt={2}>
         {tasks && tasks.length > 0 ? (

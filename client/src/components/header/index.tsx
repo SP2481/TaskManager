@@ -22,7 +22,7 @@ export const Header = () => {
   return (
     <StyledBox>
       <Link href={'/'}>
-        <Typography variant="h4" color="primary">
+        <Typography variant="h5" color="primary" fontWeight={600}>
           TaskManager
         </Typography>
       </Link>
