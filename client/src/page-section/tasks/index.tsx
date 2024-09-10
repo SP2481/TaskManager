@@ -57,7 +57,7 @@ const Tasks = ({ initialtasks, projectId }: Props) => {
       }
       <FlexBox alignItems={'center'}>
         <ArrowBackIcon sx={{ height:'2rem', width:'2rem', cursor:'pointer' }} onClick={() => router.push('/') } />
-        <h1 style={{ marginLeft: "0.5rem",fontWeight:'500'  }}>Tasks</h1>
+        <h1 style={{ marginLeft: "0.5rem",fontWeight:'500'  }}> Tasks</h1>
       </FlexBox>
       <Stack gap={1} mt={2}>
         {tasks && tasks.length > 0 ? (

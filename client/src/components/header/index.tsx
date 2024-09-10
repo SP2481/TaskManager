@@ -17,6 +17,7 @@ export const Header = () => {
 
   const handleLogout = () => {
     Cookies.remove("accesstoken");
+    router.refresh()
     router.push("/login");
   };
   return (

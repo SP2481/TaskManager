@@ -7,7 +7,6 @@ const userSchema:Schema<IUser> = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      Error: 'Username is already taken'
     },
     email: {
       type: String,

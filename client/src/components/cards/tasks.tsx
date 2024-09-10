@@ -99,7 +99,7 @@ export const TaskRow = ({ task }: { task: ITask }) => {
             >
               {task?.title}
               <small style={{display:'block', color:'#AAA', marginTop:3}}>
-                {task?.project_id.title}
+                {task?.description}
               </small>
             </h3>
           </FlexBox>
