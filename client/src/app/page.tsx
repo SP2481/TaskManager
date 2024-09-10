@@ -10,6 +10,5 @@ export default async function Home() {
   if (accesstoken) {
     data = await getAllProjects(accesstoken);
   }
-
   return <HomePage initialProjects={data} />;
 }

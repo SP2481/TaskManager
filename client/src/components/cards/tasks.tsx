@@ -120,7 +120,7 @@ export const TaskRow = ({ task }: { task: ITask }) => {
               <DeleteIcon onClick={handleDelete} style={{ cursor: "pointer" }} />
             </Tooltip>
             <Tooltip title='Edit task'>
-              <FlexBox onClick={() => setOpen(true)} alignItems={'center'}>
+              <FlexBox onClick={() =>{ task?.status !== 'Done' && setOpen(true)}} alignItems={'center'}>
                 <ModeEditIcon style={{ cursor: "pointer" }} />
               </FlexBox>
 

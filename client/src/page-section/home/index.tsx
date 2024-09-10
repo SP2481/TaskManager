@@ -17,7 +17,6 @@ const HomePage = ({ initialProjects }: { initialProjects: IProject[] }) => {
     refetchOnWindowFocus: false,
     enabled: !!token,
   });
-
   return (
     <Box height={"80vh"} mt={2}>
       {

@@ -40,6 +40,7 @@ const LoginComponent = ({ onToggleForm }: LoginComponentProps) => {
       setLoading(true);
       await loginUser(data);
       router.push("/");
+      router.refresh()
       setLoading(false);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
